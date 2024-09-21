@@ -58,7 +58,8 @@ const signin = () => {
           Alert.alert("error", JSON.stringify(signInAttempt, null, 2))
         }
       } catch (err) {
-        Alert.alert('error', JSON.stringify(err, null, 2))
+        showToast('success' ,JSON.stringify(err, null, 2,),'')
+        // Alert.alert('error', JSON.stringify(err, null, 2))
       }
 
     },

@@ -55,7 +55,7 @@ export default function RootLayout() {
           <Stack.Screen name="+not-found" />
           <Slot />
         </Stack>
-        <Toast />
+        <Toast  config={toastConfig} />
 
       </ClerkLoaded>
     </ClerkProvider>

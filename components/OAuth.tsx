@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { Alert, Image, Text, View } from "react-native";
 
 import CustomButton from "@/components/customButton";
-import { icons } from "@/app/constants/index";
+import { icons } from "@/constants";
 import { googleOAuth } from "@/lib/auth";
 
 
