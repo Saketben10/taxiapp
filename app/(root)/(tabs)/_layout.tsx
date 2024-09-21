@@ -1,4 +1,4 @@
-import { icons } from "@/app/constants";
+import { icons } from "@/constants";
 import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, View } from "react-native";
 
@@ -15,7 +15,7 @@ const TabIcon = ({
         className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
     >
         <View
-            className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
+            className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-[#0097e6]" : ""}`}
         >
             <Image
                 source={source}
@@ -25,7 +25,7 @@ const TabIcon = ({
             />
         </View>
     </View>
-);
+)
 
 export default function Layout() {
     return (
@@ -36,7 +36,7 @@ export default function Layout() {
                 tabBarInactiveTintColor: "white",
                 tabBarShowLabel: false,
                 tabBarStyle: {
-                    backgroundColor: "#333333",
+                    backgroundColor: "#2f3640",
                     borderRadius: 50,
                     paddingBottom: 0, // ios only
                     overflow: "hidden",
@@ -64,7 +64,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="rides"
                 options={{
-                    title: "Rides",
+                    title: "rides",
                     headerShown: false,
                     tabBarIcon: ({ focused }) => (
                         <TabIcon source={icons.list} focused={focused} />
@@ -74,7 +74,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="chat"
                 options={{
-                    title: "Chat",
+                    title: "chat",
                     headerShown: false,
                     tabBarIcon: ({ focused }) => (
                         <TabIcon source={icons.chat} focused={focused} />

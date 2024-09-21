@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { OAuth } from '@/components/OAuth';
 import { Link, useRouter } from 'expo-router'
-import { icons, images } from '../constants';
+import { icons, images } from "@/constants"
 import { useSignIn } from '@clerk/clerk-expo';
 import { Alert, Image, Text, View } from 'react-native';
 import { InputField } from '@/components/InputField';

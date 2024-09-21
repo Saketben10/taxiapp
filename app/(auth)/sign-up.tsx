@@ -6,7 +6,7 @@ import { ReactNativeModal } from "react-native-modal";
 import Toast from 'react-native-toast-message';
 
 import { OAuth } from "@/components/OAuth";
-import { icons, images } from "@/app/constants";
+import { icons, images } from "@/constants"
 import { fetchAPI } from "@/lib/fetch";
 import CustomButton from "@/components/customButton";
 import { InputField } from "@/components/InputField";
@@ -78,7 +78,7 @@ const SignUp = () => {
         code: verification.code,
       });
       if (completeSignUp.status === "complete") {
-        await fetchAPI("", {
+        await fetchAPI("(api)/user", {
           method: "POST",
           body: JSON.stringify({
             name: form.name,
