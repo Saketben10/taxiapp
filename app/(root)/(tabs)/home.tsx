@@ -1,10 +1,17 @@
- 
+import GoogleTextInput from "@/components/GoogleTextInput";
+import Map from "@/components/Map";
 import Ridecard from "@/components/Ridecard";
+import { icons, images } from "@/constants";
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
 
- 
-import { FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
+import {
+  GestureHandlerRootView,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+const loading = true;
 
 const recentRides = [
   {
@@ -115,11 +122,82 @@ const recentRides = [
 export default function Page() {
   const { user } = useUser();
 
+  const handleSignout = () => {};
+  const handleDestinationPress = () => {};
+
   return (
     <SafeAreaView className="flex-1  bg-general-500">
       <FlatList
+        // data={[]}
         data={recentRides?.slice(0, 5)}
         renderItem={({ item }) => <Ridecard ride={item} />}
+        className="px-5"
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{
+          paddingBottom: 100,
+        }}
+        ListEmptyComponent={() => (
+          <View
+            className="
+          flex flex-col items-center justify-center
+          "
+          >
+            {!loading ? (
+              <>
+                <Image
+                  source={images.noResult}
+                  className="w-40 h-40    "
+                  alt="no recent rides found"
+                  resizeMode="contain"
+                />
+                <Text className="text-sm font-JakartaMedium">
+                  no rides found
+                </Text>
+              </>
+            ) : (
+              <>
+                <ActivityIndicator size={"large"} color={"#0984e3"} />
+              </>
+            )}
+          </View>
+        )}
+        ListHeaderComponent={() => (
+          <>
+            <View className="flex flex-row items-center justify-between my-5">
+              <Text className="text-2xl font-JakartaExtraBold">
+                Welcome{" "}
+                {user?.firstName ||
+                  user?.emailAddresses[0].emailAddress.split("@")[0]}
+                !👋
+              </Text>
+              <GestureHandlerRootView>
+                <TouchableOpacity
+                  onPress={handleSignout}
+                  className="justify-center items-center  w-10 h-10 rounded-full bg-white"
+                >
+                  <Image source={icons.out} className="h-4 w-4 " />
+                </TouchableOpacity>
+              </GestureHandlerRootView>
+            </View>
+            <GoogleTextInput
+              icon={icons.search}
+              containerStyle="bg-white shadow-md shadow-neutral-300"
+              handlePress={handleDestinationPress}
+            />
+            <>
+              <Text className="text-xl font-JakartaBold mt-5 mb-3">
+                You Are here !
+              </Text>
+              <View
+                className="
+          flex flex-row items-center bg-transparent h-[300px]
+          "
+              >
+                <Map />
+              </View>
+            </>
+          </>
+        )}
       />
     </SafeAreaView>
   );
