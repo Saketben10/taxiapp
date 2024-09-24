@@ -3,15 +3,19 @@ import Map from "@/components/Map";
 import Ridecard from "@/components/Ridecard";
 import { icons, images } from "@/constants";
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
-
+import { useEffect, useState } from "react";
+import * as Location from "expo-location";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 import {
   GestureHandlerRootView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocationStore } from "@/store";
 
 const loading = true;
+
+const { setUserLocation } = useLocationStore();
 
 const recentRides = [
   {
@@ -122,8 +126,37 @@ const recentRides = [
 export default function Page() {
   const { user } = useUser();
 
+  const [haspermission, setHasPermission] = useState(false);
+
   const handleSignout = () => {};
   const handleDestinationPress = () => {};
+
+  useEffect(() => {
+    const requestLocation = async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setHasPermission(false);
+
+        return;
+      }
+
+      let loaction = await Location.getCurrentPositionAsync();
+      const address = await Location.reverseGeocodeAsync({
+        latitude: loaction.coords?.latitude!,
+        longitude: loaction.coords?.longitude!,
+      });
+
+      setUserLocation({
+        // latitude: loaction.coords.latitude,
+        // longitude: loaction.coords.longitude,
+
+        latitude: 37.78825,
+        longitude: -122.4324,
+        address: `${address[0].name},${address[0].region}`,
+      });
+    };
+    requestLocation();
+  }, []);
 
   return (
     <SafeAreaView className="flex-1  bg-general-500">
@@ -190,12 +223,15 @@ export default function Page() {
               </Text>
               <View
                 className="
-          flex flex-row items-center bg-transparent h-[300px]
+          flex flex-row items-center   mx-2 mb-2   bg-transparent h-[300px]
           "
               >
                 <Map />
               </View>
             </>
+            <Text className="text-xl font-JakartaBold mt-5 mb-3">
+              Recent Rides
+            </Text>
           </>
         )}
       />

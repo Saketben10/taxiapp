@@ -9,7 +9,7 @@ const GoogleTextInput = ({
 }: GoogleInputProps) => {
   return (
     <View
-      className={`flex flex-row items-center justify-center relative z-50 rounded-xl ${containerStyle}   mb-5`}
+      className={`flex flex-row items-center  justify-center relative z-50 rounded-2xl ${containerStyle}   mb-5`}
     >
       <Text>search</Text>
     </View>
