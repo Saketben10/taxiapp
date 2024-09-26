@@ -1,5 +1,5 @@
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
-import { Slot } from 'expo-router'
+import { Slot } from "expo-router";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -18,7 +18,7 @@ const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
 if (!publishableKey) {
   throw new Error(
-    "Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env",
+    "Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env"
   );
 }
 
@@ -53,10 +53,9 @@ export default function RootLayout() {
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(root)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
+          <Toast config={toastConfig} />
           <Slot />
         </Stack>
-        <Toast  config={toastConfig} />
-
       </ClerkLoaded>
     </ClerkProvider>
   );

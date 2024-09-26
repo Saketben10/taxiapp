@@ -2,7 +2,7 @@ import GoogleTextInput from "@/components/GoogleTextInput";
 import Map from "@/components/Map";
 import Ridecard from "@/components/Ridecard";
 import { icons, images } from "@/constants";
-import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
+import { useUser } from "@clerk/clerk-expo";
 import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
@@ -11,11 +11,11 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import { MarkerData } from "@/types/type";
 import { useLocationStore } from "@/store";
 
 const loading = true;
-
-const { setUserLocation } = useLocationStore();
 
 const recentRides = [
   {
@@ -123,10 +123,12 @@ const recentRides = [
     },
   },
 ];
+
 export default function Page() {
   const { user } = useUser();
-
+  const { setUserLocation } = useLocationStore();
   const [haspermission, setHasPermission] = useState(false);
+  const [markers, setMarkers] = useState<MarkerData[]>([]);
 
   const handleSignout = () => {};
   const handleDestinationPress = () => {};
@@ -136,25 +138,24 @@ export default function Page() {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setHasPermission(false);
+      } else {
+        let loaction = await Location.getCurrentPositionAsync();
+        const address = await Location.reverseGeocodeAsync({
+          latitude: loaction.coords?.latitude!,
+          longitude: loaction.coords?.longitude!,
+        });
 
-        return;
+        setUserLocation({
+          // latitude: loaction.coords.latitude,
+          // longitude: loaction.coords.longitude,
+
+          latitude: 37.78825,
+          longitude: -122.4324,
+          address: `${address[0].name},${address[0].region}`,
+        });
       }
-
-      let loaction = await Location.getCurrentPositionAsync();
-      const address = await Location.reverseGeocodeAsync({
-        latitude: loaction.coords?.latitude!,
-        longitude: loaction.coords?.longitude!,
-      });
-
-      setUserLocation({
-        // latitude: loaction.coords.latitude,
-        // longitude: loaction.coords.longitude,
-
-        latitude: 37.78825,
-        longitude: -122.4324,
-        address: `${address[0].name},${address[0].region}`,
-      });
     };
+
     requestLocation();
   }, []);
 
