@@ -3,8 +3,8 @@ import { Link, router } from "expo-router";
 import { useState } from "react";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
-import Toast from 'react-native-toast-message';
- 
+import Toast from "react-native-toast-message";
+
 import { icons, images } from "@/constants";
 import { fetchAPI } from "@/lib/fetch";
 import CustomButton from "@/components/customButton";
@@ -12,19 +12,15 @@ import { InputField } from "@/components/InputField";
 import { googleOAuth } from "@/lib/auth";
 import { OAuth } from "@/components/OAuth";
 
- 
-
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  
   const [toastConfig, settoastConfig] = useState({
-    type: '',
-    text1: '',
-    text2: ''
-
-  })
+    type: "",
+    text1: "",
+    text2: "",
+  });
 
   const [form, setForm] = useState({
     name: "",
@@ -37,20 +33,19 @@ const SignUp = () => {
     code: "",
   });
 
-  
   const showToast = (type: string, text1: string, text2: string) => {
     settoastConfig({
       type,
       text1,
-      text2
-    })
+      text2,
+    });
 
     Toast.show({
       type,
       text1,
-      text2
-    })
-  }
+      text2,
+    });
+  };
 
   const onSignUpPress = async () => {
     if (!isLoaded) return;
@@ -163,9 +158,9 @@ const SignUp = () => {
           // }
           onModalHide={() => {
             if (verification.state === "success") {
-              showToast("success","account craeted successfully",'')
+              showToast("success", "account craeted successfully", "");
               setShowSuccessModal(true);
-              router.push('/(root)/(tabs)/home')
+              router.push("/(root)/(tabs)/home");
             }
           }}
         >

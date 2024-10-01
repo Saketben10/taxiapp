@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
 import { MarkerData } from "@/types/type";
 import { useLocationStore } from "@/store";
@@ -126,12 +127,19 @@ const recentRides = [
 
 export default function Page() {
   const { user } = useUser();
-  const { setUserLocation } = useLocationStore();
+  const { setUserLocation, setDestinationLocation } = useLocationStore();
   const [haspermission, setHasPermission] = useState(false);
   const [markers, setMarkers] = useState<MarkerData[]>([]);
 
   const handleSignout = () => {};
-  const handleDestinationPress = () => {};
+  const handleDestinationPress = (location: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => {
+    setDestinationLocation(location);
+    router.push("/(root)/(tabs)/home");
+  };
 
   useEffect(() => {
     const requestLocation = async () => {
