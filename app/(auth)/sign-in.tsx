@@ -113,8 +113,6 @@ const signin = () => {
               <Text className="text-primary-500">Create an account</Text>
             </Link>
           </View>
-          {/* //FIXME: have  to add verfifcation modal inside here  */}
-          {/* verification modal */}
         </View>
       </ScrollView>
     </GestureHandlerRootView>
