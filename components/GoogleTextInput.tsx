@@ -15,7 +15,14 @@ const GoogleTextInput = ({
 
   return (
     <View
-      className={`flex flex-row items-center  justify-center relative z-50 rounded-2xl ${containerStyle}   mb-5`}
+      className={`flex flex-row items-center  justify-center relative z-50   shadow-md ${containerStyle}   mb-5`}
+      style={{
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+        elevation: 10, // For Android
+      }}
     >
       <GooglePlacesAutocomplete
         fetchDetails={true}
@@ -72,7 +79,7 @@ const GoogleTextInput = ({
           placeholderTextColor: "gray",
           placeholder: initialLocation
             ? initialLocation
-            : "where do you want to go",
+            : "where do you want to go?",
         }}
       />
     </View>

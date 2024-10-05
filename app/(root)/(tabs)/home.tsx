@@ -205,7 +205,7 @@ export default function Page() {
         )}
         ListHeaderComponent={() => (
           <>
-            <View className="flex flex-row items-center justify-between my-5">
+            <View className="flex flex-row   my-5">
               <Text className="text-2xl font-JakartaExtraBold">
                 Welcome{" "}
                 {user?.firstName ||
@@ -215,9 +215,19 @@ export default function Page() {
               <GestureHandlerRootView>
                 <TouchableOpacity
                   onPress={handleSignout}
-                  className="justify-center items-center  w-10 h-10 rounded-full bg-white"
+                  className="justify-center items-center  w-10 h-10 rounded-full bg-white absolute  right-0 "
                 >
                   <Image source={icons.out} className="h-4 w-4 " />
+                </TouchableOpacity>
+              </GestureHandlerRootView>
+              <GestureHandlerRootView>
+                <TouchableOpacity
+                  onPress={() => {
+                    router.replace("/(root)/find-ride");
+                  }}
+                  className="justify-center items-center  w-10 h-10 rounded-full bg-white absolute  right-0 "
+                >
+                  <Image source={icons.point} className="h-4 w-4 " />
                 </TouchableOpacity>
               </GestureHandlerRootView>
             </View>
@@ -227,7 +237,7 @@ export default function Page() {
               handlePress={handleDestinationPress}
             />
             <>
-              <Text className="text-xl font-JakartaBold mt-5 mb-3">
+              <Text className="text-xl font-JakartaBold mt-5 mb-3  text-mine-100 ">
                 You Are here !
               </Text>
               <View
@@ -238,7 +248,7 @@ export default function Page() {
                 <Map />
               </View>
             </>
-            <Text className="text-xl font-JakartaBold mt-5 mb-3">
+            <Text className="text-xl font-JakartaBold mt-5 mb-3  text-mine-100">
               Recent Rides
             </Text>
           </>
